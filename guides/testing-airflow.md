@@ -101,28 +101,18 @@ We would then write a `test_evennumbercheckoperator.py` file with unit tests lik
 ```python
 from datetime import datetime
 
-import pytest
-from airflow.models import DAG, TaskInstance
 
-
-@pytest.fixture
-def dag():
-    return DAG("test_dag", default_args={"owner": "airflow", "start_date": datetime(2021, 1, 1)})
-
-
-def test_even(dag):
+def test_even():
     """Tests that the EvenNumberCheckOperator returns True for 10."""
-    task = EvenNumberCheckOperator(my_operator_param=10, task_id="even", dag=dag)
-    ti = TaskInstance(task=task, execution_date=datetime.now())
-    result = task.execute(ti.get_template_context())
+    task = EvenNumberCheckOperator(my_operator_param=10, task_id="even")
+    result = task.execute(context={})
     assert result is True
 
 
-def test_odd(dag):
+def test_odd():
     """Tests that the EvenNumberCheckOperator returns False for 11."""
-    task = EvenNumberCheckOperator(my_operator_param=11, task_id="odd", dag=dag)
-    ti = TaskInstance(task=task, execution_date=datetime.now())
-    result = task.execute(ti.get_template_context())
+    task = EvenNumberCheckOperator(my_operator_param=11, task_id="odd")
+    result = task.execute(context={})
     assert result is False
 ```
 
