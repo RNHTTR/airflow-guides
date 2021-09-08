@@ -53,7 +53,7 @@ def test_no_import_errors():
     assert not dag_bag.import_errors  # Import errors aren't raised but captured to ensure all DAGs are parsed
 ```
 
-Internally, Airflow loads DAGs with a class named the "DagBag". As a "DAG developer", you never need this class. For testing however, it's convenient because it simultaneously loads all DAGs in `$AIRFLOW_HOME/dags` and functions as a sanity check because e.g. missing required arguments, acyclic DAGs, or duplicate DAG ids result in an error here.
+Internally, Airflow loads DAGs with a class named the "DagBag". As a "DAG developer", you never need this class. For testing however, it's convenient because it simultaneously loads all DAGs in `$AIRFLOW_HOME/dags` and functions as a sanity check because e.g. missing required arguments, acyclic DAGs, or duplicate DAG ids raise an error here.
 
 You may also use DAG validation tests to test for properties that you want to be consistent across all DAGs. For example, if your team has a rule that all DAGs must have two retries for each task, you might write a test like this to enforce that rule:
 
